@@ -1,6 +1,7 @@
-use ructe::Ructe;
 use std::env;
 use std::path::PathBuf;
+
+use ructe::Ructe;
 
 fn main() {
     let in_dir = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap()).join("templates_ructe");

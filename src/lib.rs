@@ -9,5 +9,6 @@ pub mod sailfish;
 pub mod std_write;
 pub mod tera;
 pub mod maud_bench;
+pub mod mini_jinja;
 
 include!(concat!(env!("OUT_DIR"), "/templates.rs"));

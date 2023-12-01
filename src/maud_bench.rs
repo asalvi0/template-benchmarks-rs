@@ -1,6 +1,4 @@
-
 use criterion;
-
 use maud::html;
 
 pub fn big_table(b: &mut criterion::Bencher, size: &usize) {

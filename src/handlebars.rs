@@ -1,6 +1,6 @@
 use std::collections::BTreeMap;
 
-use ::handlebars::{to_json, Context, Handlebars};
+use ::handlebars::{Context, Handlebars, to_json};
 use criterion;
 use serde::Serialize;
 use serde_json;
@@ -21,7 +21,7 @@ pub fn big_table(b: &mut criterion::Bencher<'_>, size: &usize) {
     handlebars
         .register_template_string("big-table.html", SOURCE)
         .unwrap();
-    let ctx = Context::wraps(&data).unwrap();
+    let ctx = Context::wraps(data).unwrap();
 
     b.iter(|| {
         handlebars
@@ -36,7 +36,7 @@ struct BigTable {
     table: Vec<Vec<usize>>,
 }
 
-static SOURCE: &'static str = "<html>
+static SOURCE: &str = "<html>
     {{#each table as |n|}}
         <tr>{{#each n as |v|}}<td>{{v}}</td>{{/each}}</tr>
     {{/each}}
@@ -46,11 +46,10 @@ pub fn teams(b: &mut criterion::Bencher<'_>, _: &usize) {
     let mut handlebars = Handlebars::new();
     handlebars
         .register_template_string("table", TEAMS_TEMPLATE)
-        .ok()
         .expect("Invalid template format");
 
     let data = teams_data();
-    let ctx = Context::wraps(&data).unwrap();
+    let ctx = Context::wraps(data).unwrap();
 
     b.iter(|| handlebars.render_with_context("table", &ctx).ok().unwrap())
 }
@@ -58,30 +57,29 @@ pub fn teams(b: &mut criterion::Bencher<'_>, _: &usize) {
 fn teams_data() -> BTreeMap<String, Json> {
     let mut data = BTreeMap::new();
 
-    data.insert("year".to_string(), to_json(&"2015".to_owned()));
+    data.insert("year".to_string(), to_json("2015".to_owned()));
 
-    let mut teams = Vec::new();
-
-    for v in vec![
+    let team_fields = [
         ("Jiangsu", 43u16),
         ("Beijing", 27u16),
         ("Guangzhou", 22u16),
         ("Shandong", 12u16),
-    ]
-    .iter()
-    {
+    ];
+    let mut teams = Vec::new();
+
+    for v in team_fields.iter() {
         let (name, score) = *v;
         let mut t = BTreeMap::new();
-        t.insert("name".to_string(), to_json(&name));
-        t.insert("score".to_string(), to_json(&score));
-        teams.push(t)
+        t.insert("name".to_string(), to_json(name));
+        t.insert("score".to_string(), to_json(score));
+        teams.push(t);
     }
 
     data.insert("teams".to_string(), to_json(&teams));
     data
 }
 
-static TEAMS_TEMPLATE: &'static str = "<html>
+static TEAMS_TEMPLATE: &str = "<html>
   <head>
     <title>{{year}}</title>
   </head>

@@ -15,11 +15,11 @@ pub fn big_table(b: &mut criterion::Bencher<'_>, size: &usize) {
         let mut output = Vec::new();
         write!(&mut output, "<table>").unwrap();
         for r1 in &table {
-            write!(&mut output, "<tr>\n").unwrap();
+            writeln!(&mut output, "<tr>").unwrap();
             for r2 in r1 {
                 write!(&mut output, "<td>{col}</td>", col = r2).unwrap();
             }
-            write!(&mut output, "</tr>\n").unwrap();
+            writeln!(&mut output, "</tr>").unwrap();
         }
         write!(&mut output, "</table>").unwrap();
     });
@@ -60,8 +60,8 @@ pub fn teams(b: &mut criterion::Bencher<'_>, _: &usize) {
                 <ul>",
             year = teams.year
         )
-        .unwrap();
-        for (i, team) in (&teams).teams.iter().enumerate() {
+            .unwrap();
+        for (i, team) in teams.teams.iter().enumerate() {
             let champion = if i != 0 { "" } else { "champion" };
             write!(
                 &mut output,
@@ -71,7 +71,7 @@ pub fn teams(b: &mut criterion::Bencher<'_>, _: &usize) {
                 name = team.name,
                 score = team.score
             )
-            .unwrap();
+                .unwrap();
         }
         write!(
             &mut output,
@@ -79,7 +79,7 @@ pub fn teams(b: &mut criterion::Bencher<'_>, _: &usize) {
             </body>
             </html>"
         )
-        .unwrap();
+            .unwrap();
     });
 }
 

@@ -18,7 +18,6 @@ pub fn big_table(b: &mut criterion::Bencher<'_>, size: &usize) {
     let mut ctx = Context::new();
     ctx.insert("table", &table);
 
-    let _ = tera.render("big-table.html", &ctx).unwrap();
     b.iter(|| tera.render("big-table.html", &ctx));
 }
 
@@ -29,7 +28,7 @@ struct Team {
 }
 
 // Tera doesn't allow `escape` on number values
-static BIG_TABLE_TEMPLATE: &'static str = "<table>
+static BIG_TABLE_TEMPLATE: &str = "<table>
 {% for row in table %}
 <tr>{% for col in row %}<td>{{ col }}</td>{% endfor %}</tr>
 {% endfor %}
@@ -63,11 +62,10 @@ pub fn teams(b: &mut criterion::Bencher<'_>, _: &usize) {
         ],
     );
 
-    let _ = tera.render("teams.html", &ctx).unwrap();
     b.iter(|| tera.render("teams.html", &ctx));
 }
 
-static TEAMS_TEMPLATE: &'static str = "<html>
+static TEAMS_TEMPLATE: &str = "<html>
   <head>
     <title>{{ year }}</title>
   </head>

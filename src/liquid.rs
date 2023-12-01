@@ -34,12 +34,12 @@ pub fn teams(b: &mut criterion::Bencher<'_>, _: &usize) {
     let parser = ParserBuilder::with_stdlib().build().unwrap();
     let template = parser.parse(TEAMS_TEMPLATE).unwrap();
 
-    let data: Object = self::serde_yaml::from_str(TEAMS_DATA).unwrap();
+    let data: Object = serde_yaml::from_str(TEAMS_DATA).unwrap();
 
     b.iter(|| template.render(&data));
 }
 
-static TEAMS_TEMPLATE: &'static str = "<html>
+static TEAMS_TEMPLATE: &str = "<html>
   <head>
     <title>{{year}}</title>
   </head>
@@ -55,7 +55,7 @@ static TEAMS_TEMPLATE: &'static str = "<html>
   </body>
 </html>";
 
-static TEAMS_DATA: &'static str = "
+static TEAMS_DATA: &str = "
 year: 2015
 teams:
   - name: Jiangsu

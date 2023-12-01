@@ -1,7 +1,7 @@
 use criterion;
+use horrorshow::Error;
 use horrorshow::html;
 use horrorshow::prelude::*;
-use horrorshow::Error;
 
 pub fn big_table(b: &mut criterion::Bencher<'_>, size: &usize) {
     let mut table = Vec::with_capacity(*size);
