@@ -1,5 +1,5 @@
-use ::liquid::{model::Value, Object, ParserBuilder};
 use criterion;
+use liquid::{model::Value, Object, ParserBuilder};
 use serde_yaml;
 
 pub fn big_table(b: &mut criterion::Bencher<'_>, size: &usize) {
@@ -39,7 +39,7 @@ pub fn teams(b: &mut criterion::Bencher<'_>, _: &usize) {
     b.iter(|| template.render(&data));
 }
 
-static TEAMS_TEMPLATE: &str = "<html>
+static TEAMS_TEMPLATE: &str = r#"<html>
   <head>
     <title>{{year}}</title>
   </head>
@@ -47,13 +47,13 @@ static TEAMS_TEMPLATE: &str = "<html>
     <h1>CSL {{year}}</h1>
     <ul>
     {% for team in teams %}
-      <li class=\"{% if forloop.first %}champion{% endif %}\">
+      <li class="{% if forloop.first %}champion{% endif %}">
       <b>{{team.name}}</b>: {{team.score}}
       </li>
     {% endfor %}
     </ul>
   </body>
-</html>";
+</html>"#;
 
 static TEAMS_DATA: &str = "
 year: 2015
