@@ -1,14 +1,15 @@
-pub mod askama_bench;
+pub mod askama;
 pub mod fomat;
 pub mod handlebars;
-pub mod horrorshow_bench;
+pub mod horrorshow;
 pub mod liquid;
-pub mod markup_bench;
+pub mod markup;
+pub mod maud;
+pub mod minijinja;
+pub mod ramhorns;
 pub mod ructe;
 pub mod sailfish;
 pub mod std_write;
 pub mod tera;
-pub mod maud_bench;
-pub mod mini_jinja;
 
 include!(concat!(env!("OUT_DIR"), "/templates.rs"));
