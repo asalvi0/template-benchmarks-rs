@@ -1,8 +1,8 @@
-use criterion::{Criterion, criterion_group, criterion_main};
+use criterion::{criterion_group, criterion_main, Criterion};
 
 use template_benchmarks_rs::{
-    askama, fomat, handlebars, horrorshow, liquid, markup, maud, minijinja, ramhorns,
-    ructe, sailfish, std_write, tera,
+    askama, fomat, handlebars, horrorshow, liquid, markup, maud, minijinja, ramhorns, ructe,
+    sailfish, std_write, tera,
 };
 
 fn big_table(c: &mut Criterion) {
